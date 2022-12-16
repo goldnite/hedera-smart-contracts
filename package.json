@@ -1,0 +1,32 @@
+{
+  "name": "templateforv2-static",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "filesize": "wc -c",
+    "hl": "clear && node HederaLegacy.js",
+    "hleg": "clear && node HLEG.js",
+    "deploy": "clear && node deploy.js",
+    "test": "clear && node test.js",
+    "start": "nodemon index.js",
+    "build": "echo This is a static template, there is no bundler or bundling involved!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesandbox-app/static-template.git"
+  },
+  "keywords": [],
+  "author": "Ives van Hoorne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codesandbox-app/static-template/issues"
+  },
+  "homepage": "https://github.com/codesandbox-app/static-template#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "@hashgraph/sdk": "^2.19.0",
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
