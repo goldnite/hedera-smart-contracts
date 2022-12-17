@@ -43,8 +43,8 @@ const client = Client.forTestnet();
 // Set your client account ID and private key used to pay for transaction fees and sign transactions
 client.setOperator(operatorAccountId, operatorPrivateKey);
 
-let HLEG_contractId = "0.0.49102024";
-let HLEG_tokenId = "0.0.49102025";
+let HLEG_contractId = "0.0.49107769";
+let HLEG_tokenId = "0.0.49107770";
 const MAX_GAS = 15000000;
 
 async function deploy() {
@@ -292,17 +292,22 @@ async function myStake() {
   const count = txRec.contractFunctionResult.getUint256(1);
   console.log(`${typeSize}  ${count}`);
   for (let i = 0; i < count; i++) {
-    const serial = txRec.contractFunctionResult.getUint160(i * 4 + 2);
-    const period = txRec.contractFunctionResult.getUint256(i * 4 + 3);
-    const timestamp = txRec.contractFunctionResult.getUint256(i * 4 + 4);
-    const lastClaimedAt = txRec.contractFunctionResult.getUint256(i * 4 + 5);
+    const serial = txRec.contractFunctionResult.getUint160(i * 3 + 2);
+    const period = txRec.contractFunctionResult.getUint256(i * 3 + 3);
+    const timestamp = txRec.contractFunctionResult.getUint256(i * 3 + 4);
     console.log(
       `{\n\t${serial},\n\t${period},\n\t${new Date(
         timestamp * 1000
-      ).toLocaleString()},\n\t${new Date(
-        lastClaimedAt * 1000
-      ).toLocaleString()}\n}`
+      ).toLocaleString()},\n}`
     );
+    // const lastClaimedAt = txRec.contractFunctionResult.getUint256(i * 4 + 5);
+    // console.log(
+    //   `{\n\t${serial},\n\t${period},\n\t${new Date(
+    //     timestamp * 1000
+    //   ).toLocaleString()},\n\t${new Date(
+    //     lastClaimedAt * 1000
+    //   ).toLocaleString()}\n}`
+    // );
   }
   console.log("***", txRec.transactionId.toString());
 }
@@ -325,18 +330,20 @@ async function vault() {
 (async function () {
   await printBalance("Operator", operatorAccountId);
   try {
-    await deploy();
-    await initialize();
+    // await deploy();
+    // await initialize();
     // await tokenInfo();
     // associateToken([HLEG_tokenId]); //if not associated
     // await mint(operatorAccountId, 100 * Math.pow(10, 10));
-    // await stake([13, 14, 15], 30);
-    // await myStake();
-    // await new Promise((res) => setTimeout(res, 15000));
-    // await claim();
-    // await myStake();
-    // await new Promise((res) => setTimeout(res, 15000));
-    // await unstake([13, 14, 15]);
+    await stake([1, 2, 3], 30);
+    await stake([4, 5, 6], 10);
+    await myStake();
+    await new Promise((res) => setTimeout(res, 15000));
+    // await claim(); //deleted
+    await unstake([4, 5, 1]);
+    await myStake();
+    await new Promise((res) => setTimeout(res, 16000));
+    await unstake([2, 3, 6]);
     // await myStake();
     // await withdraw();
     // await vault();
